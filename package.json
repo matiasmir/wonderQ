@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "swagger": "^0.7.5",
+    "swagger-ui-express": "^4.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "start": "nodemon --watch '**/*.js' --ignore 'node_modules/**/*'"
+  }
+}
