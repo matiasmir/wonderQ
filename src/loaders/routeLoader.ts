@@ -1,14 +1,19 @@
 import Routes from "../routes";
+import { Application, Request, Response, NextFunction } from "express";
 
-export default function routeLoader(app) {
-  Routes.forEach((route) => {
-    app[route.method](route.route, (req, res, next) => {
-      const result = new route.controller()[route.action](req, res, next);
-      if (result instanceof Promise) {
-        result.then((result) => (result ? res.json(result) : undefined));
-      } else if (result) {
-        res.json(...result);
+export default function routeLoader(expressApp: Application): Application {
+  for (const route of Routes) {
+    expressApp[route.method](
+      route.route,
+      async (req: Request, res: Response, next: NextFunction) => {
+        const result = await new (route.controller as any)()[route.action](
+          req,
+          res,
+          next
+        );
+        if (result) return result;
       }
-    });
-  });
+    );
+  }
+  return expressApp;
 }

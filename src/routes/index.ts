@@ -1,1 +1,2 @@
-export default [];
+import Messages from "./messaging";
+export default [...Messages];
