@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 let app: express.Application = express();
 
-global["messageService"] = new Message(); // Instantiate the message class and make it available globally.
+global["messageService"] = new Message(); // Instantiate the message service and make it available globally.
 
 app.use(bodyParser.json());
 app = routeLoader(app);

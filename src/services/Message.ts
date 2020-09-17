@@ -18,7 +18,7 @@ export default class Message {
   async save(body: string): Promise<string> {
     const id = MD5(body).toString();
     this.messages[id] = body;
-    this.availableMessages.push(id);
+    this.availableMessages.unshift(id);
     return id;
   }
 

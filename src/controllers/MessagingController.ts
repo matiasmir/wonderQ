@@ -14,7 +14,6 @@ export default class MessagingController {
   async save(req: Request, res: Response, next: NextFunction) {
     try {
       if (req.body) {
-        console.log(req.body.message);
         const hash = await global["messageService"].save(req.body.message);
         return res.status(201).json({ messageId: hash });
       } else {
