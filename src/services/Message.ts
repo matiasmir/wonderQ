@@ -36,8 +36,6 @@ export default class Message {
   }
 
   async processMessage(id: string): Promise<string> {
-    console.log("id received", id);
-    console.log("messages", this.messages);
     if (Object.keys(this.messages).includes(id)) {
       delete this.messages[id];
       if (this.availableMessages.includes(id))
@@ -54,8 +52,6 @@ export default class Message {
   async checkTTL(): Promise<string> {
     let now = new Date().getTime();
     for (let messageId of Object.keys(this.MessagesInFlight)) {
-      console.log("message id", messageId);
-      console.log("now, messageTime", now, this.MessagesInFlight[messageId]);
       // If the messages on hold by the user has expired return it to the available messages array
       if (now - this.MessagesInFlight[messageId] >= this.TTL) {
         this.availableMessages.unshift(messageId);

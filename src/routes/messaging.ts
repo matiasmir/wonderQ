@@ -19,8 +19,8 @@ export default [
     action: "get",
   },
   {
-    method: "post",
-    route: "/messages/process",
+    method: "delete",
+    route: "/messages/process/:id",
     controller: MessagingController,
     action: "processMessage",
   },
