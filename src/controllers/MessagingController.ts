@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import ErrorHandler from "../middlewares/ErrorHandler";
 
 export default class MessagingController {
   async test(req: Request, res: Response, next: NextFunction) {
@@ -13,11 +14,11 @@ export default class MessagingController {
   async save(req: Request, res: Response, next: NextFunction) {
     try {
       if (req.body) {
-        console.log(req.body);
+        console.log(req.body.message);
         const hash = await global["messageService"].save(req.body.message);
         return res.status(201).json({ messageId: hash });
       } else {
-        throw new Error("Message cannot be empty");
+        throw new ErrorHandler(400, "Bad Request: Message can not be empty");
       }
     } catch (error) {
       next(error);

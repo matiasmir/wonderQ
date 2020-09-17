@@ -1,14 +1,19 @@
 import * as express from "express";
 import routeLoader from "./loaders/routeLoader";
 import Message from "./services/Message";
-import Routes from "./routes";
 import * as bodyParser from "body-parser";
+import * as swaggerUi from "swagger-ui-express";
+import { swaggerDocument } from "./swagger/swagger";
+import { handleError } from "./middlewares/handlers";
 
 const PORT = process.env.PORT || 3000;
 
-global["messageService"] = new Message();
-
 let app: express.Application = express();
+
+global["messageService"] = new Message(); // Instantiate the message class and make it available globally.
+
 app.use(bodyParser.json());
 app = routeLoader(app);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(handleError);
 app.listen(PORT);
