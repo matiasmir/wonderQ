@@ -38,10 +38,17 @@ export default class MessagingController {
 
   async processMessage(req: Request, res: Response, next: NextFunction) {
     try {
+      if (!req.body.messageId)
+        throw new ErrorHandler(
+          400,
+          "You have to specify a message id in order to process it."
+        );
       const messageId = await global["messageService"].processMessage(
         req.body.messageId
       );
-      return res.status(201).send(`Message ${messageId} proccesed correctly.`);
+      if (!messageId)
+        throw new ErrorHandler(404, "The specified message does not exist.");
+      return res.status(200).json({ messageId: messageId });
     } catch (error) {
       next(error);
     }

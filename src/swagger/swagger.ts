@@ -1,4 +1,8 @@
-import { postMessage } from "./docs/messaging.swagger";
+import {
+  postMessage,
+  processMessage,
+  pollMessages,
+} from "./docs/messaging.swagger";
 export const swaggerDocument = {
   openapi: "3.0.1",
   info: {
@@ -25,6 +29,12 @@ export const swaggerDocument = {
   paths: {
     "/messaging": {
       post: postMessage,
+    },
+    "/messaging/process": {
+      post: processMessage,
+    },
+    "/messaging/poll": {
+      get: pollMessages,
     },
   },
 };

@@ -1,3 +1,5 @@
+import ErrorHandler from "../middlewares/ErrorHandler";
+
 var MD5 = require("crypto-js/md5");
 
 export default class Message {
@@ -34,13 +36,19 @@ export default class Message {
   }
 
   async processMessage(id: string): Promise<string> {
-    delete this.messages[id];
-    if (this.availableMessages.includes[id])
-      this.availableMessages.splice(this.availableMessages.indexOf[id], 1);
-    if (Object.keys(this.MessagesInFlight).includes[id])
-      delete this.MessagesInFlight[id];
+    console.log("id received", id);
+    console.log("messages", this.messages);
+    if (Object.keys(this.messages).includes(id)) {
+      delete this.messages[id];
+      if (this.availableMessages.includes(id))
+        this.availableMessages.splice(this.availableMessages.indexOf(id), 1);
+      if (Object.keys(this.MessagesInFlight).includes(id))
+        delete this.MessagesInFlight[id];
 
-    return id;
+      return id;
+    } else {
+      return null;
+    }
   }
 
   async checkTTL(): Promise<string> {

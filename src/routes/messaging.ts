@@ -8,7 +8,7 @@ export default [
   },
   {
     method: "post",
-    route: "/messages/save",
+    route: "/messages",
     controller: MessagingController,
     action: "save",
   },
@@ -17,5 +17,11 @@ export default [
     route: "/messages/poll/:ammount",
     controller: MessagingController,
     action: "get",
+  },
+  {
+    method: "post",
+    route: "/messages/process",
+    controller: MessagingController,
+    action: "processMessage",
   },
 ];
